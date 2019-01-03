@@ -7,7 +7,7 @@ declare iso_name="qlustar-installer-10.1.1-0.iso"
 declare iso_fn="/tmp/$iso_name"
 declare sha_1=""
 declare sha_2=""
-declare usb_drive="/dev/sdb"
+# declare usb_drive="/dev/sdb"
 
 function prepareISO() {
 	gunzip "$iso_name".gz
@@ -16,9 +16,14 @@ function prepareISO() {
 	fi
 }
 
+function enterUSB() {
+	read -p "USB pen drive device (/dev/sd_):" usb_drive
+	if [ -b "$usb_drive" ]; then
+		echo "USB not recognized"; exit 1;
+	fi
+}
+
 function burnISO() {
-	echo "Insert USB pen drive and find out /dev/sd belonging to the inserted USB"
-	#dmesg -wx
 	# Now burn ISO to USB drive (assuming it's /dev/sdb) as follows
 	dd if="$iso_fn" of="$usb_drive"
 	sync
@@ -33,6 +38,7 @@ function checkISO() {
 	dd if="$usb_drive" bs=2048 count=$(( $(stat -c '%s' "$iso_fn") / 2048 )) | sha256sum
 }
 
-#prepareISO
-#burnISO
+enterUSB
+prepareISO
+burnISO
 checkISO

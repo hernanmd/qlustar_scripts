@@ -1,0 +1,11 @@
+session_name: Qlustar installation script
+windows: 
+  - window_name: dmesg output
+    layout: tiled
+    focus: true
+    panes:
+      - dmesg       # Top-left
+      - lsblk       # Top-right
+      - focus: true
+        shell_command:
+          - install_head_qlustar.sh
