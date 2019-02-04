@@ -1,0 +1,24 @@
+session_name: 4-pane-split
+windows:
+- window_name: logs_1
+  layout: tiled
+  focus: true
+  panes:
+    - tailf /var/log/dhcp/dhcpd.log | ccze -A
+    - tailf /var/log/dpkg.log | ccze -A
+    - tailf /var/log/auth.log | ccze -A
+    - top -i -o %CPU
+- window_name: logs_2
+  layout: tiled
+  panes:
+    - tailf /var/log/apache2/access.log | ccze -A
+    - tailf /var/log/apache2/error.log | ccze -A
+    - tailf /var/log/mysql/error.log | ccze -A
+    - top
+- window_name: logs_3
+  layout: tiled
+  panes:
+    - tailf /var/log/qluman/execd.log | ccze -A
+    - tailf /var/log/qluman/qlumand.log  | ccze -A
+    - tailf /var/log/qluman/qluman-router.log | ccze -A
+    - tailf /var/log/qluman/qluman-dhcpscanner.log | ccze -A
