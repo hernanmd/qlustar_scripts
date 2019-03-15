@@ -1,0 +1,13 @@
+#!/bin/sh
+# Requirements
+# 	root
+#	multitail
+
+multitail \
+        -i /var/log/qluman/qluman-dhcpscanner.log \
+        -i /var/log/dhcp/dhcpd.log \
+        -i /var/log/qluman/qlumand.log \
+        -i /var/log/qluman/qluman-router.log \
+        -i /var/log/qluman/execd.log \
+        -i /var/log/qluman/slurmd.log
+
